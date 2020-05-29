@@ -7,7 +7,6 @@ import { withRouter } from 'react-router-dom';
 const CourseChapterAdd = ({
   idCourse,
   addCourseChapter,
-  match,
   history,
   toggleModal,
 }) => {
@@ -39,7 +38,7 @@ const CourseChapterAdd = ({
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>{match.params.courseTitle}</h2>
+                <h2 className='card-title '></h2>
                 <p className='card-courseChapter'>
                   <i className='material-icons'>bookmarks</i> Add Chapter
                 </p>
@@ -54,7 +53,7 @@ const CourseChapterAdd = ({
                         </label>
                         <input
                           className='form-control'
-                          type='text'
+                          type='number'
                           placeholder='Order Number'
                           name='order'
                           value={order}
@@ -90,7 +89,7 @@ const CourseChapterAdd = ({
                         </label>
                         <input
                           className='form-control'
-                          type='text'
+                          type='number'
                           placeholder='Length (minutes)'
                           name='length'
                           value={length}

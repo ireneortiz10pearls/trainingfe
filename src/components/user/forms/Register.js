@@ -36,7 +36,7 @@ const Register = ({
     if (password !== password2) {
       setAlert('Passwords do not match.', 'danger');
     } else {
-      register({ firstName, lastName, email, password, roleId });
+      register({ firstName, lastName, email, password, roleId, history });
     }
   };
 
@@ -183,5 +183,5 @@ Register.propTypes = {
 const mapStateToProps = (state) => ({ list: state.list });
 
 export default connect(mapStateToProps, { setAlert, register, getList })(
-  Register
+  withRouter(Register)
 );

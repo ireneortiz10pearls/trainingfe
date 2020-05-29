@@ -59,12 +59,6 @@ const CourseChapters = ({
                     </tbody>
                   </table>
                 </div>
-                <Link
-                  to={`/coursechapteradd/${courseId}/${courseTitle}`}
-                  className='btn btn-warning my-1'
-                >
-                  Add Chapter
-                </Link>
                 <button
                   className='btn btn-warning my-1'
                   onClick={toggleChapterAddModal}

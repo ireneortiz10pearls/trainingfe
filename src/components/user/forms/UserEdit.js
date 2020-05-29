@@ -4,7 +4,6 @@ import { getUserById, editUser } from '../../../actions/user';
 import PropTypes from 'prop-types';
 import { getList } from '../../../actions/list';
 import { withRouter } from 'react-router-dom';
-import { setAlert } from '../../../actions/alert';
 
 const UserEdit = ({
   setAlert,

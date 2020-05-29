@@ -10,8 +10,6 @@ import Sidebar from './components/layout/sidebar/Sidebar';
 import Courses from './components/course/table/Courses';
 import CourseAdd from './components/course/forms/CourseAdd';
 import CourseEdit from './components/course/forms/CourseEdit';
-import CourseChapterAdd from './components/coursechapter/forms/CourseChapterAdd';
-import CourseChapterEdit from './components/coursechapter/forms/CourseChapterEdit';
 import Categories from './components/category/table/Categories';
 import CategoryAdd from './components/category/forms/CategoryAdd';
 import CategoryEdit from './components/category/forms/CategoryEdit';
@@ -72,16 +70,6 @@ const App = () => {
                     exact
                     path='/courseedit/:id'
                     component={CourseEdit}
-                  />
-                  <PrivateRoute
-                    exact
-                    path='/coursechapteradd/:courseId/:courseTitle'
-                    component={CourseChapterAdd}
-                  />
-                  <PrivateRoute
-                    exact
-                    path='/coursechapteredit/:courseId/:courseTitle/:id'
-                    component={CourseChapterEdit}
                   />
                   <PrivateRoute
                     exact

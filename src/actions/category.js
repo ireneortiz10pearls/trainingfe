@@ -69,14 +69,7 @@ export const addCategory = (formData, history) => async (dispatch) => {
     console.log(err);
 
     if (errors) {
-      errors.forEach((error) =>
-        dispatch(
-          setAlert(
-            'Input error. Check your information and try again.',
-            'danger'
-          )
-        )
-      );
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({

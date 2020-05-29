@@ -53,6 +53,7 @@ export const register = ({
   email,
   password,
   roleId,
+  history,
 }) => async (dispatch) => {
   const config = {
     headers: {
@@ -77,17 +78,14 @@ export const register = ({
       type: REGISTER_SUCCESS,
       payload: res.data.payload,
     });
+    history.push('/users');
   } catch (err) {
     const errors = err.response.data.errors;
 
-    if (err) {
-      dispatch(
-        setAlert('Input error. Check your information and try again.', 'danger')
-      );
-      if (errors) {
-        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      }
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
+
     dispatch({
       type: REGISTER_FAIL,
     });

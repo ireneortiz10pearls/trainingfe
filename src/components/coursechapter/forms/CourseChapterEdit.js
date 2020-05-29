@@ -8,25 +8,25 @@ import {
 import { withRouter } from 'react-router-dom';
 
 const CourseChapterEdit = ({
+  idCourse,
   getCourseChapterById,
   editCourseChapter,
   courseChapter: { courseChapter, loading },
-  match,
   history,
+  toggleModal,
 }) => {
   const [formData, setFormData] = useState({
     name: '',
     id: '',
     order: '',
-    courseId: match.params.courseId,
+    courseId: idCourse,
     length: '',
     percentage: '',
     isActive: '',
   });
 
   useEffect(() => {
-    const fetchCourseChapter = async () =>
-      await getCourseChapterById(match.params.id);
+    const fetchCourseChapter = async () => await getCourseChapterById(idCourse);
     fetchCourseChapter();
   }, [loading, getCourseChapterById]);
 
@@ -52,8 +52,8 @@ const CourseChapterEdit = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     editCourseChapter(formData, history);
+    toggleModal();
   };
 
   return (
@@ -64,7 +64,7 @@ const CourseChapterEdit = ({
             <div className='col-md-12'>
               <div className='card'>
                 <div className='card-header card-header-warning'>
-                  <h2 className='card-title '>{match.params.courseTitle}</h2>
+                  <h2 className='card-title '></h2>
                   <p className='card-courseChapter'>
                     <i className='material-icons'>bookmarks</i> Edit Chapter
                   </p>
@@ -79,7 +79,7 @@ const CourseChapterEdit = ({
                           </label>
                           <input
                             className='form-control'
-                            type='text'
+                            type='number'
                             placeholder='Order Number'
                             name='order'
                             value={order}
@@ -115,7 +115,7 @@ const CourseChapterEdit = ({
                           </label>
                           <input
                             className='form-control'
-                            type='text'
+                            type='number'
                             placeholder='Length (minutes)'
                             name='length'
                             value={length}

@@ -76,14 +76,7 @@ export const addCourseChapter = (formData, history) => async (dispatch) => {
     console.log(err);
 
     if (errors) {
-      errors.forEach((error) =>
-        dispatch(
-          setAlert(
-            'Input error. Check your information and try again.',
-            'danger'
-          )
-        )
-      );
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -109,12 +102,18 @@ export const editCourseChapter = (formData, history) => async (dispatch) => {
       formData,
       config
     );
-    console.log(res.data.payload);
+    const courseChapters = await axios.get(
+      `/api/coursechapter/course/${courseId}`
+    );
     dispatch({
       type: UPDATE_COURSECHAPTER,
       payload: res.data.payload,
     });
     dispatch(setAlert('Chapter Updated', 'success'));
+    dispatch({
+      type: GET_COURSECHAPTERS,
+      payload: courseChapters.data.payload,
+    });
     history.push(`/courseedit/${courseId}`);
   } catch (err) {
     dispatch({

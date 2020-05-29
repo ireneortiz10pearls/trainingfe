@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteCourseChapter } from '../../../actions/coursechapter';
 import { Link } from 'react-router-dom';
+import Modali, { useModali } from 'modali';
+import CourseChapterEdit from '../forms/CourseChapterEdit';
 
 const CourseChapterItem = ({
   courseId,
@@ -17,6 +19,8 @@ const CourseChapterItem = ({
       return;
     }
   }
+
+  const [chapterEditModal, toggleChapterEditModal] = useModali();
   return (
     <tr key={id}>
       <td>{order}</td>
@@ -30,12 +34,15 @@ const CourseChapterItem = ({
         >
           Delete
         </button>
-        <Link
-          to={`/coursechapteredit/${courseId}/${courseTitle}/${id}`}
-          className='btn btn-info my-1'
-        >
+        <button className='btn btn-info' onClick={toggleChapterEditModal}>
           Edit
-        </Link>
+        </button>
+        <Modali.Modal {...chapterEditModal}>
+          <CourseChapterEdit
+            idCourse={courseId}
+            toggleModal={toggleChapterEditModal}
+          />
+        </Modali.Modal>
       </td>
     </tr>
   );
