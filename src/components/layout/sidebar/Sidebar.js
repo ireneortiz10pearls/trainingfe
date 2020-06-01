@@ -40,7 +40,7 @@ const Sidebar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
         <Fragment>
           <MenuLink
             activeOnlyWhenExact={true}
-            to='/#'
+            to='/trainingpaths'
             label='Training Path'
             icon='school'
           />

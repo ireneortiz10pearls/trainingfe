@@ -37,12 +37,12 @@ const CourseChapterAdd = ({
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              <div className='card-header card-header-warning'>
-                <h2 className='card-title '></h2>
+              {/* <div className='card-header card-header-warning'>
+                <h3 className='card-title '></h3>
                 <p className='card-courseChapter'>
                   <i className='material-icons'>bookmarks</i> Add Chapter
                 </p>
-              </div>
+              </div> */}
               <div className='card-body'>
                 <form className='form' onSubmit={(e) => onSubmit(e)}>
                   <div className='row'>

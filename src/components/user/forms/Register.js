@@ -47,7 +47,7 @@ const Register = ({
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>Member Creation</h2>
+                <h3 className='card-title '>Member Creation</h3>
                 <p className='card-category'>
                   {' '}
                   <i className='material-icons'>group_add</i> Add a Member

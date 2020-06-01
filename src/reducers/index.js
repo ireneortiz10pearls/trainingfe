@@ -6,6 +6,7 @@ import list from './list';
 import user from './user';
 import course from './course';
 import courseChapter from './courseChapter';
+import trainingpath from './trainingpath';
 
 export default combineReducers({
   alert,
@@ -15,4 +16,5 @@ export default combineReducers({
   user,
   course,
   courseChapter,
+  trainingpath,
 });

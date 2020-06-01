@@ -39,7 +39,7 @@ const CategoryAdd = ({
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>Category</h2>
+                <h3 className='card-title '>Category</h3>
                 <p className='card-category'>
                   <i className='material-icons'>bookmarks</i> Add Category
                 </p>

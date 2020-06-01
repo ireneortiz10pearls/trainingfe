@@ -33,7 +33,7 @@ const Login = ({ login, isAuthenticated }) => {
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>Sign In</h2>
+                <h3 className='card-title '>Sign In</h3>
                 <p className='card-category'>
                   {' '}
                   <i className='material-icons'>fingerprint</i> Sign Into Your

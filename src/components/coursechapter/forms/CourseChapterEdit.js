@@ -8,7 +8,7 @@ import {
 import { withRouter } from 'react-router-dom';
 
 const CourseChapterEdit = ({
-  idCourse,
+  chapterId,
   getCourseChapterById,
   editCourseChapter,
   courseChapter: { courseChapter, loading },
@@ -19,14 +19,15 @@ const CourseChapterEdit = ({
     name: '',
     id: '',
     order: '',
-    courseId: idCourse,
+    courseId: '',
     length: '',
     percentage: '',
     isActive: '',
   });
 
   useEffect(() => {
-    const fetchCourseChapter = async () => await getCourseChapterById(idCourse);
+    const fetchCourseChapter = async () =>
+      await getCourseChapterById(chapterId);
     fetchCourseChapter();
   }, [loading, getCourseChapterById]);
 
@@ -63,12 +64,12 @@ const CourseChapterEdit = ({
           <div className='row'>
             <div className='col-md-12'>
               <div className='card'>
-                <div className='card-header card-header-warning'>
+                {/* <div className='card-header card-header-warning'>
                   <h2 className='card-title '></h2>
                   <p className='card-courseChapter'>
                     <i className='material-icons'>bookmarks</i> Edit Chapter
                   </p>
-                </div>
+                </div> */}
                 <div className='card-body'>
                   <form className='form' onSubmit={(e) => onSubmit(e)}>
                     <div className='row'>

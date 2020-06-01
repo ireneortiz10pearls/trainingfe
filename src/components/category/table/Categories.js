@@ -1,15 +1,125 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
-import { getCategories } from '../../../actions/category';
-import CategoryItem from './CategoryItem';
-import { Link } from 'react-router-dom';
+import { getCategories, deleteCategory } from '../../../actions/category';
+import { Link, useHistory } from 'react-router-dom';
+import { MDBDataTableV5 } from 'mdbreact';
 
-const Categories = ({ getCategories, category: { categories, loading } }) => {
+const Categories = ({
+  getCategories,
+  deleteCategory,
+  category: { categories, loading },
+}) => {
+  const [datatable, setDatatable] = useState({});
+  let history = useHistory();
+
   useEffect(() => {
     getCategories();
   }, [getCategories]);
+
+  useEffect(() => {
+    if (!loading && categories) {
+      const rows = categories.map((category) => {
+        const {
+          id,
+          Setting: { setname },
+        } = category;
+        if (!category.hasOwnProperty('setname')) {
+          Object.defineProperty(category, 'setname', {
+            value: setname,
+          });
+        } else {
+          Object.assign(category, 'setname', {
+            value: setname,
+          });
+        }
+
+        if (!category.hasOwnProperty('action')) {
+          return Object.defineProperty(category, 'action', {
+            value: (
+              <Fragment>
+                <button
+                  type='button'
+                  className='btn btn-danger'
+                  onClick={(e) => confirmDelete(id, e)}
+                >
+                  Delete
+                </button>
+                <button
+                  type='button'
+                  className='btn btn-info'
+                  onClick={(e) => handleEditClick(id, e)}
+                >
+                  Edit
+                </button>
+              </Fragment>
+            ),
+          });
+        } else {
+          return Object.assign(category, 'action', {
+            value: (
+              <Fragment>
+                <button
+                  type='button'
+                  className='btn btn-danger'
+                  onClick={(e) => confirmDelete(id, e)}
+                >
+                  Delete
+                </button>
+                <button
+                  type='button'
+                  className='btn btn-info'
+                  onClick={(e) => handleEditClick(id, e)}
+                >
+                  Edit
+                </button>
+              </Fragment>
+            ),
+          });
+        }
+      });
+      setDatatable({
+        columns: [
+          {
+            label: 'Id',
+            field: 'id',
+            sort: 'asc',
+            width: 150,
+          },
+          {
+            label: 'Name',
+            field: 'name',
+            width: 150,
+          },
+          {
+            label: 'Type',
+            field: 'setname',
+            width: 150,
+          },
+          {
+            label: 'Actions',
+            field: 'action',
+          },
+        ],
+        rows: rows,
+      });
+    }
+  }, [categories]);
+
+  function confirmDelete(id, e) {
+    e.preventDefault();
+    if (window.confirm('Are you sure to delete category?')) {
+      deleteCategory(id);
+    } else {
+      return;
+    }
+  }
+
+  function handleEditClick(id, e) {
+    e.preventDefault();
+    history.push(`/categoryedit/${id}`);
+  }
 
   return loading ? (
     <Spinner />
@@ -21,34 +131,16 @@ const Categories = ({ getCategories, category: { categories, loading } }) => {
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>Categories</h2>
+                <h3 className='card-title '>Categories</h3>
               </div>
               <div className='card-body'>
-                <div className='table-responsive'>
-                  <table className='table'>
-                    <thead className=' text-warning'>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Type</th>
-                      {/* <th>Active</th> */}
-                      <th>Actions</th>
-                    </thead>
-                    <tbody>
-                      {categories.length > 0 ? (
-                        categories.map((category) => (
-                          <CategoryItem
-                            key={category.id}
-                            categoryItem={category}
-                          />
-                        ))
-                      ) : (
-                        <tr>
-                          <td colSpan={4}>No categories found</td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+                <MDBDataTableV5
+                  hover
+                  entriesOptions={[5, 20, 25]}
+                  entries={5}
+                  pagesAmount={4}
+                  data={datatable}
+                />
                 <Link to={'/categoryadd'} className='btn btn-warning my-1'>
                   Add Category
                 </Link>
@@ -63,9 +155,12 @@ const Categories = ({ getCategories, category: { categories, loading } }) => {
 
 Categories.propTypes = {
   getCategories: PropTypes.func.isRequired,
+  deleteCategory: PropTypes.func.isRequired,
   category: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({ category: state.category });
 
-export default connect(mapStateToProps, { getCategories })(Categories);
+export default connect(mapStateToProps, { getCategories, deleteCategory })(
+  Categories
+);

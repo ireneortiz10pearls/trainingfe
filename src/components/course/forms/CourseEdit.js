@@ -90,7 +90,7 @@ const CourseEdit = ({
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>Course</h2>
+                <h3 className='card-title '>Course</h3>
                 <p className='card-course'>
                   <i className='material-icons'>bookmarks</i> Edit Course
                 </p>
@@ -209,9 +209,7 @@ const CourseEdit = ({
           </div>
         </div>
       </div>
-      {!loading && course && (
-        <CourseChapters courseId={course.id} courseTitle={course.title} />
-      )}
+      {!loading && course && <CourseChapters courseId={course.id} />}
     </Fragment>
   );
 };

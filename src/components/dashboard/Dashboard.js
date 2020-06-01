@@ -10,7 +10,7 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-warning'>
-                <h2 className='card-title '>Dashboard</h2>
+                <h3 className='card-title '>Dashboard</h3>
               </div>
               <div className='card-body'>
                 {isAuthenticated && !loading && user.roleId === 1 && (
