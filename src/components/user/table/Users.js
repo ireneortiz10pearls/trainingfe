@@ -82,27 +82,22 @@ const Users = ({ getUsers, deleteUser, user: { users, loading } }) => {
             label: 'Id',
             field: 'id',
             sort: 'asc',
-            width: 150,
           },
           {
             label: 'First Name',
             field: 'firstName',
-            width: 150,
           },
           {
             label: 'Last Name',
             field: 'lastName',
-            width: 150,
           },
           {
             label: 'Email',
             field: 'email',
-            width: 150,
           },
           {
             label: 'Role',
             field: 'setname',
-            width: 150,
           },
           {
             label: 'Actions',
@@ -136,7 +131,7 @@ const Users = ({ getUsers, deleteUser, user: { users, loading } }) => {
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              <div className='card-header card-header-warning'>
+              <div className='card-header card-header-tenpearls'>
                 <h3 className='card-title '>Members</h3>
               </div>
               <div className='card-body'>
@@ -147,7 +142,7 @@ const Users = ({ getUsers, deleteUser, user: { users, loading } }) => {
                   pagesAmount={4}
                   data={datatable}
                 />
-                <Link to={'/register'} className='btn btn-warning my-1'>
+                <Link to={'/register'} className='btn btn-tenpearls my-1'>
                   Add Member
                 </Link>
               </div>

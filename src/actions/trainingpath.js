@@ -8,6 +8,9 @@ import {
   UPDATE_TRAININGPATH,
   ADD_TRAININGPATH,
   CLEAR_TRAININGPATH,
+  CLEAR_COURSE,
+  COURSE_ERROR,
+  GET_COURSES,
 } from './types';
 
 // Get all trainingpaths
@@ -23,6 +26,25 @@ export const getUserCourses = (userId) => async (dispatch) => {
     console.log(err);
     dispatch({
       type: TRAININGPATH_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get user available courses
+export const getAvailableCourses = (id) => async (dispatch) => {
+  dispatch({ type: CLEAR_COURSE });
+  try {
+    const res = await axios.get(`/api/course/available/${id}`);
+
+    dispatch({
+      type: GET_COURSES,
+      payload: res.data.payload,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: COURSE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
@@ -47,7 +69,9 @@ export const getTrainingPathById = (id) => async (dispatch) => {
 };
 
 // Create trainingpath
-export const addTrainingPath = (formData, history) => async (dispatch) => {
+export const addUserCourses = (coursesArr, userId, history) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
@@ -55,21 +79,17 @@ export const addTrainingPath = (formData, history) => async (dispatch) => {
       },
     };
 
-    const { courseId } = formData;
+    await axios.post('/api/trainingpath', { coursesArr, userId }, config);
 
-    const res = await axios.post('/api/trainingpath', formData, config);
-    dispatch({
-      type: GET_TRAININGPATH,
-      payload: res.data.payload,
-    });
+    const pathsRes = await axios.get(`/api/trainingpath/user/${userId}`);
 
     dispatch({
-      type: ADD_TRAININGPATH,
-      payload: res.data.payload,
+      type: GET_TRAININGPATHS,
+      payload: pathsRes.data.payload,
     });
 
-    dispatch(setAlert('Chapter Created', 'success'));
-    history.push(`/courseedit/${courseId}`);
+    dispatch(setAlert('Courses Saved', 'success'));
+    history.push('/trainingpaths');
   } catch (err) {
     const errors = err.response.data.errors;
     console.log(err);
@@ -91,10 +111,6 @@ export const editTrainingPath = (formData, history) => async (dispatch) => {
   };
 
   const { courseId } = formData;
-
-  console.log(courseId);
-  console.log(formData);
-
   try {
     const res = await axios.put(
       `/api/trainingpath/${formData.id}`,
@@ -123,30 +139,20 @@ export const editTrainingPath = (formData, history) => async (dispatch) => {
 };
 
 // Delete trainingpath (soft delete)
-export const deleteTrainingPath = (id) => async (dispatch) => {
+export const deleteTrainingPath = (coursesArr, userId) => async (dispatch) => {
   const config = {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  let res = await axios.get(`/api/trainingpath/${id}`);
-
   try {
-    res = await axios.put(
-      `/api/trainingpath/${id}`,
-      { ...res.data.payload, isActive: false },
-      config
-    );
+    await axios.put('/api/trainingpath', { coursesArr, userId }, config);
 
-    const trainingpaths = await axios.get('/api/trainingpath');
+    const res = await axios.get(`/api/trainingpath/user/${userId}`);
 
-    dispatch({
-      type: UPDATE_TRAININGPATH,
-      payload: res.data.payload,
-    });
     dispatch(setAlert('TrainingPath Deleted', 'success'));
     dispatch({
       type: GET_TRAININGPATHS,
-      payload: trainingpaths.data.payload,
+      payload: res.data.payload,
     });
     dispatch({ type: CLEAR_TRAININGPATH });
   } catch (err) {

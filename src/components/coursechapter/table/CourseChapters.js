@@ -20,6 +20,7 @@ import {
 } from 'mdbreact';
 
 const CourseChapters = ({
+  auth: { user },
   courseId,
   getCourseChapters,
   deleteCourseChapter,
@@ -43,51 +44,81 @@ const CourseChapters = ({
 
   useEffect(() => {
     if (!loading && courseChapters) {
+      let total = courseChapters.reduce(
+        function (acumulator, nextValue) {
+          return {
+            length: acumulator.length + nextValue.length,
+          };
+        },
+        { length: 0 }
+      );
       const rows = courseChapters.map((chapter) => {
-        const { id } = chapter;
-
-        if (!chapter.hasOwnProperty('action')) {
-          return Object.defineProperty(chapter, 'action', {
-            value: (
-              <Fragment>
-                <button
-                  type='button'
-                  className='btn btn-danger'
-                  onClick={(e) => confirmDelete(id, e)}
-                >
-                  Delete
-                </button>
-                <button
-                  type='button'
-                  className='btn btn-info'
-                  onClick={() => toggleEdit(id)}
-                >
-                  Edit
-                </button>
-              </Fragment>
-            ),
+        const { id, length } = chapter;
+        let value = (length / total.length) * 100;
+        value = value.toFixed(2);
+        if (!chapter.hasOwnProperty('_percentage')) {
+          Object.defineProperty(chapter, '_percentage', {
+            value: value,
           });
         } else {
-          return Object.assign(chapter, 'action', {
-            value: (
-              <Fragment>
-                <button
-                  type='button'
-                  className='btn btn-danger'
-                  onClick={(e) => confirmDelete(id, e)}
-                >
-                  Delete
-                </button>
-                <button
-                  type='button'
-                  className='btn btn-info'
-                  onClick={() => toggleEdit(id)}
-                >
-                  Edit
-                </button>
-              </Fragment>
-            ),
+          Object.assign(chapter, '_percentage', {
+            value: value,
           });
+        }
+        if (user.roleId === 1) {
+          if (!chapter.hasOwnProperty('action')) {
+            return Object.defineProperty(chapter, 'action', {
+              value: (
+                <Fragment>
+                  <button
+                    type='button'
+                    className='btn btn-danger'
+                    onClick={(e) => confirmDelete(id, e)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    type='button'
+                    className='btn btn-info'
+                    onClick={() => toggleEdit(id)}
+                  >
+                    Edit
+                  </button>
+                </Fragment>
+              ),
+            });
+          } else {
+            return Object.assign(chapter, 'action', {
+              value: (
+                <Fragment>
+                  <button
+                    type='button'
+                    className='btn btn-danger'
+                    onClick={(e) => confirmDelete(id, e)}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    type='button'
+                    className='btn btn-info'
+                    onClick={() => toggleEdit(id)}
+                  >
+                    Edit
+                  </button>
+                </Fragment>
+              ),
+            });
+          }
+        } else {
+          if (!chapter.hasOwnProperty('action')) {
+            return Object.defineProperty(chapter, 'action', {
+              value: '',
+            });
+          } else {
+            return Object.assign(chapter, 'action', {
+              value: '',
+            });
+          }
         }
       });
       setDatatable({
@@ -96,20 +127,21 @@ const CourseChapters = ({
             label: 'Order',
             field: 'order',
             sort: 'asc',
-            width: 150,
           },
           {
             label: 'Name',
             field: 'name',
-            width: 150,
           },
           {
-            label: 'Length',
+            label: 'Length (min)',
             field: 'length',
-            width: 150,
           },
           {
-            label: 'Actions',
+            label: 'Percentage (%)',
+            field: '_percentage',
+          },
+          {
+            label: '',
             field: 'action',
           },
         ],
@@ -136,9 +168,6 @@ const CourseChapters = ({
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              {/* <div className='card-header card-header-warning'>
-                <h4 className='card-title '>Chapters</h4>
-              </div> */}
               <div className='card-body'>
                 <MDBDataTableV5
                   hover
@@ -180,7 +209,10 @@ CourseChapters.propTypes = {
   courseChapter: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({ courseChapter: state.courseChapter });
+const mapStateToProps = (state) => ({
+  courseChapter: state.courseChapter,
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps, {
   getCourseChapters,

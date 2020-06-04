@@ -64,7 +64,7 @@ const CourseChapterEdit = ({
           <div className='row'>
             <div className='col-md-12'>
               <div className='card'>
-                {/* <div className='card-header card-header-warning'>
+                {/* <div className='card-header card-header-tenpearls'>
                   <h2 className='card-title '></h2>
                   <p className='card-courseChapter'>
                     <i className='material-icons'>bookmarks</i> Edit Chapter
@@ -128,7 +128,7 @@ const CourseChapterEdit = ({
                     </div>
                     <input
                       type='submit'
-                      className='btn btn-warning'
+                      className='btn btn-tenpearls'
                       value='Edit'
                     />
                   </form>

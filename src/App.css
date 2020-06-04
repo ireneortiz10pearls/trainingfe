@@ -3066,6 +3066,45 @@ fieldset:disabled a.btn {
   box-shadow: none, 0 0 0 0.2rem rgba(255, 235, 59, 0.5);
 }
 
+.btn-tenpearls {
+  color: #212529;
+  background-color: #0870fd;
+  border-color: #0870fd;
+  box-shadow: none;
+}
+
+.btn-tenpearls:hover {
+  color: #212529;
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn-tenpearls:focus,
+.btn-tenpearls.focus {
+  box-shadow: none, 0 0 0 0.2rem rgba(131, 153, 250, 0.5);
+}
+
+.btn-tenpearls.disabled,
+.btn-tenpearls:disabled {
+  color: #212529;
+  background-color: #0870fd;
+  border-color: #0870fd;
+}
+
+.btn-tenpearls:not(:disabled):not(.disabled):active,
+.btn-tenpearls:not(:disabled):not(.disabled).active,
+.show > .btn-tenpearls.dropdown-toggle {
+  color: #212529;
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn-tenpearls:not(:disabled):not(.disabled):active:focus,
+.btn-tenpearls:not(:disabled):not(.disabled).active:focus,
+.show > .btn-tenpearls.dropdown-toggle:focus {
+  box-shadow: none, 0 0 0 0.2rem rgba(131, 153, 250, 0.5);
+}
+
 .btn-danger {
   color: #ffffff;
   background-color: #f44336;
@@ -3371,6 +3410,44 @@ fieldset:disabled a.btn {
 .btn-outline-warning:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-warning.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 235, 59, 0.5);
+}
+
+.btn-outline-tenpearls {
+  color: #0870fd;
+  background-color: transparent;
+  background-image: none;
+  border-color: #0870fd;
+}
+
+.btn-outline-tenpearls:hover {
+  color: #212529;
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn-outline-tenpearls:focus,
+.btn-outline-tenpearls.focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 95, 255, 0.5);
+}
+
+.btn-outline-tenpearls.disabled,
+.btn-outline-tenpearls:disabled {
+  color: #0870fd;
+  background-color: transparent;
+}
+
+.btn-outline-tenpearls:not(:disabled):not(.disabled):active,
+.btn-outline-tenpearls:not(:disabled):not(.disabled).active,
+.show > .btn-outline-tenpearls.dropdown-toggle {
+  color: #212529;
+  background-color: #0870fd;
+  border-color: #0870fd;
+}
+
+.btn-outline-tenpearls:not(:disabled):not(.disabled):active:focus,
+.btn-outline-tenpearls:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-tenpearls.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 95, 255, 0.5);
 }
 
 .btn-outline-danger {
@@ -9480,6 +9557,15 @@ a.text-warning:focus {
   color: #ffe608 !important;
 }
 
+.text-tenpearls {
+  color: #0870fd !important;
+}
+
+a.text-tenpearls:hover,
+a.text-tenpearls:focus {
+  color: #0554c2 !important;
+}
+
 .text-danger {
   color: #f44336 !important;
 }
@@ -10022,6 +10108,102 @@ a.text-dark:focus {
 .btn.btn-warning.btn-link:active {
   background-color: transparent;
   color: #ff9800;
+}
+
+.btn.btn-tenpearls {
+  color: #fff;
+  background-color: #8893a0;
+  border-color: #0554c2;
+  box-shadow: 0 2px 2px 0 rgba(131, 153, 250, 0.5),
+    0 3px 1px -2px rgba(131, 153, 250, 0.5),
+    0 1px 5px 0 rgba(131, 153, 250, 0.5);
+}
+
+.btn.btn-tenpearls:hover {
+  color: #fff;
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn.btn-tenpearls:focus,
+.btn.btn-tenpearls.focus,
+.btn.btn-tenpearls:hover {
+  color: #fff;
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn.btn-tenpearls:active,
+.btn.btn-tenpearls.active,
+.open > .btn.btn-tenpearls.dropdown-toggle,
+.show > .btn.btn-tenpearls.dropdown-toggle {
+  color: #fff;
+  background-color: #8893a0;
+  border-color: #0554c2;
+  box-shadow: 0 2px 2px 0 rgba(131, 153, 250, 0.5),
+    0 3px 1px -2px rgba(131, 153, 250, 0.5),
+    0 1px 5px 0 rgba(131, 153, 250, 0.5);
+}
+
+.btn.btn-tenpearls:active:hover,
+.btn.btn-tenpearls:active:focus,
+.btn.btn-tenpearls:active.focus,
+.btn.btn-tenpearls.active:hover,
+.btn.btn-tenpearls.active:focus,
+.btn.btn-tenpearls.active.focus,
+.open > .btn.btn-tenpearls.dropdown-toggle:hover,
+.open > .btn.btn-tenpearls.dropdown-toggle:focus,
+.open > .btn.btn-tenpearls.dropdown-toggle.focus,
+.show > .btn.btn-tenpearls.dropdown-toggle:hover,
+.show > .btn.btn-tenpearls.dropdown-toggle:focus,
+.show > .btn.btn-tenpearls.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.open > .btn.btn-tenpearls.dropdown-toggle.bmd-btn-icon {
+  color: inherit;
+  background-color: #0554c2;
+}
+
+.open > .btn.btn-tenpearls.dropdown-toggle.bmd-btn-icon:hover {
+  background-color: #0554c2;
+}
+
+.btn.btn-tenpearls.disabled:focus,
+.btn.btn-tenpearls.disabled.focus,
+.btn.btn-tenpearls:disabled:focus,
+.btn.btn-tenpearls:disabled.focus {
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn.btn-tenpearls.disabled:hover,
+.btn.btn-tenpearls:disabled:hover {
+  background-color: #0554c2;
+  border-color: #0554c2;
+}
+
+.btn.btn-tenpearls:focus,
+.btn.btn-tenpearls:active,
+.btn.btn-tenpearls:hover {
+  box-shadow: 0 14px 26px -12px rgba(131, 153, 250, 0.5),
+    0 4px 23px 0px rgba(131, 153, 250, 0.5),
+    0 8px 10px -5px rgba(131, 153, 250, 0.5);
+}
+
+.btn.btn-tenpearls.btn-link {
+  background-color: transparent;
+  color: #0554c2;
+  box-shadow: none;
+}
+
+.btn.btn-tenpearls.btn-link:hover,
+.btn.btn-tenpearls.btn-link:focus,
+.btn.btn-tenpearls.btn-link:active {
+  background-color: transparent;
+  color: #0554c2;
 }
 
 .btn.btn-danger {
@@ -16465,6 +16647,12 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
 
+.sidebar[data-color='tenpearls'] li.active > a {
+  background-color: #0870fd;
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
+    0 7px 10px -5px rgba(131, 153, 250, 0.5);
+}
+
 .sidebar[data-color='danger'] li.active > a {
   background-color: #f44336;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
@@ -18659,6 +18847,15 @@ html[dir='rtl'] .form-check .form-check-sign .check:before {
   background: linear-gradient(60deg, #ffa726, #fb8c00);
 }
 
+.card .card-header-tenpearls .card-icon,
+.card .card-header-tenpearls .card-text,
+.card .card-header-tenpearls:not(.card-header-icon):not(.card-header-text),
+.card.bg-tenpearls,
+.card.card-rotate.bg-tenpearls .front,
+.card.card-rotate.bg-tenpearls .back {
+  background: linear-gradient(60deg, #0870fd, #0554c2);
+}
+
 .card .card-header-danger .card-icon,
 .card .card-header-danger .card-text,
 .card .card-header-danger:not(.card-header-icon):not(.card-header-text),
@@ -18703,6 +18900,13 @@ html[dir='rtl'] .form-check .form-check-sign .check:before {
 .card .card-header-warning .card-text {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(255, 152, 0, 0.4);
+}
+
+.card .card-header-tenpearls .card-icon,
+.card .card-header-tenpearls:not(.card-header-icon):not(.card-header-text),
+.card .card-header-tenpearls .card-text {
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
+    0 7px 10px -5px rgba(131, 153, 250, 0.5);
 }
 
 .card .card-header-info .card-icon,

@@ -16,6 +16,7 @@ import CategoryEdit from './components/category/forms/CategoryEdit';
 import Users from './components/user/table/Users';
 import UserEdit from './components/user/forms/UserEdit';
 import TrainingPaths from './components/trainingpath/table/TrainingPaths';
+import AvailableCourses from './components/trainingpath/table/AvailableCourses';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -54,6 +55,11 @@ const App = () => {
                     exact
                     path='/trainingpaths'
                     component={TrainingPaths}
+                  />
+                  <PrivateRoute
+                    exact
+                    path='/availablecourses'
+                    component={AvailableCourses}
                   />
                   <PrivateRoute
                     exact

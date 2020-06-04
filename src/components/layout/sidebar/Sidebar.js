@@ -75,7 +75,7 @@ const Sidebar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
     <Fragment>
       <div
         className='sidebar'
-        data-color='orange'
+        data-color='tenpearls'
         data-background-color='white'
       >
         <div className='logo'>

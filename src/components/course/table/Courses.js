@@ -68,7 +68,7 @@ const Courses = ({
                 {' '}
                 <button
                   type='button'
-                  className='btn btn-warning'
+                  className='btn btn-tenpearls'
                   onClick={() => toggle(id)}
                 >
                   Chapters
@@ -97,7 +97,7 @@ const Courses = ({
                 {' '}
                 <button
                   type='button'
-                  className='btn btn-warning'
+                  className='btn btn-tenpearls'
                   onClick={() => toggle(id)}
                 >
                   Chapters
@@ -127,17 +127,14 @@ const Courses = ({
             label: 'Id',
             field: 'id',
             sort: 'asc',
-            width: 150,
           },
           {
             label: 'Title',
             field: 'title',
-            width: 150,
           },
           {
             label: 'Category',
             field: 'name',
-            width: 150,
           },
           {
             label: 'Actions',
@@ -172,7 +169,7 @@ const Courses = ({
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              <div className='card-header card-header-warning'>
+              <div className='card-header card-header-tenpearls'>
                 <h3 className='card-title '>Courses</h3>
               </div>
               <div className='card-body'>
@@ -183,7 +180,7 @@ const Courses = ({
                   pagesAmount={4}
                   data={datatable}
                 />
-                <Link to={'/courseadd'} className='btn btn-warning my-1'>
+                <Link to={'/courseadd'} className='btn btn-tenpearls my-1'>
                   Add Course
                 </Link>
                 <MDBContainer>

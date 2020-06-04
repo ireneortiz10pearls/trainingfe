@@ -32,7 +32,7 @@ const Login = ({ login, isAuthenticated }) => {
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              <div className='card-header card-header-warning'>
+              <div className='card-header card-header-tenpearls'>
                 <h3 className='card-title '>Sign In</h3>
                 <p className='card-category'>
                   {' '}
@@ -79,7 +79,7 @@ const Login = ({ login, isAuthenticated }) => {
                   </div>
                   <input
                     type='submit'
-                    className='btn btn-warning'
+                    className='btn btn-tenpearls'
                     value='Login'
                   />
                 </form>

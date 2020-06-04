@@ -85,17 +85,13 @@ const Categories = ({
             label: 'Id',
             field: 'id',
             sort: 'asc',
-            width: 150,
           },
           {
             label: 'Name',
             field: 'name',
-            width: 150,
           },
           {
             label: 'Type',
-            field: 'setname',
-            width: 150,
           },
           {
             label: 'Actions',
@@ -130,7 +126,7 @@ const Categories = ({
         <div className='row'>
           <div className='col-md-12'>
             <div className='card'>
-              <div className='card-header card-header-warning'>
+              <div className='card-header card-header-tenpearls'>
                 <h3 className='card-title '>Categories</h3>
               </div>
               <div className='card-body'>
@@ -141,7 +137,7 @@ const Categories = ({
                   pagesAmount={4}
                   data={datatable}
                 />
-                <Link to={'/categoryadd'} className='btn btn-warning my-1'>
+                <Link to={'/categoryadd'} className='btn btn-tenpearls my-1'>
                   Add Category
                 </Link>
               </div>
