@@ -5,6 +5,7 @@ import {
   UPDATE_TRAININGPATH,
   GET_TRAININGPATHS,
   ADD_TRAININGPATH,
+  CLEAR_TRAININGPATHS,
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +49,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         trainingpath: null,
+        loading: false,
+      };
+    case CLEAR_TRAININGPATHS:
+      return {
+        ...state,
+        trainingpath: null,
+        trainingpaths: [],
         loading: false,
       };
     default:

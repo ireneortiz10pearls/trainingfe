@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false,
+        loading: true,
       };
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -41,6 +41,7 @@ export default function (state = initialState, action) {
         token: null,
         isAuthenticated: false,
         loading: false,
+        user: null,
       };
     default:
       return state;

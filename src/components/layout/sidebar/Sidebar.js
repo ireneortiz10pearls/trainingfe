@@ -36,7 +36,7 @@ const Sidebar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
           />
         </Fragment>
       )}
-      {isAuthenticated && !loading && user.roleId === 2 && (
+      {/* {isAuthenticated && !loading && user.roleId === 2 && (
         <Fragment>
           <MenuLink
             activeOnlyWhenExact={true}
@@ -44,14 +44,8 @@ const Sidebar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
             label='Training Path'
             icon='school'
           />
-          <MenuLink
-            activeOnlyWhenExact={true}
-            to='/#'
-            label='Log Progress'
-            icon='trending_up'
-          />
         </Fragment>
-      )}
+      )} */}
       <li className='nav-item '>
         <a className='nav-link' onClick={logout} href='#!'>
           <i className='material-icons'>settings_power</i>

@@ -6,16 +6,15 @@ import {
   getUserCourses,
   deleteTrainingPath,
 } from '../../../actions/trainingpath';
-import CourseChapters from '../../coursechapter/table/CourseChapters';
-import { Link } from 'react-router-dom';
+import LogProgress from '../../trainingpath/table/LogProgress';
+import { Link, withRouter } from 'react-router-dom';
 import {
   MDBDataTable,
   MDBContainer,
-  MDBBtn,
   MDBModal,
   MDBModalBody,
   MDBModalHeader,
-  MDBModalFooter,
+  MDBProgress,
 } from 'mdbreact';
 
 const TrainingPaths = ({
@@ -23,6 +22,7 @@ const TrainingPaths = ({
   getUserCourses,
   deleteTrainingPath,
   trainingpath: { trainingpaths, loading },
+  history,
 }) => {
   const [checked, setChecked] = useState([]);
 
@@ -45,151 +45,181 @@ const TrainingPaths = ({
 
   const [modal, toggleChapters] = useState(false);
   const [courseId, toggleCourse] = useState(0);
+  const [trainingPathId, toggleTrainingPath] = useState(0);
 
-  const toggle = (id) => {
-    toggleCourse(() => id);
+  const toggle = (id, courseId) => {
+    toggleCourse(() => courseId);
+    toggleTrainingPath(() => id);
     toggleChapters((prevModal) => !prevModal);
     return;
   };
 
   useEffect(() => {
-    const fetchUserCourses = async () => await getUserCourses(user.id);
-    fetchUserCourses();
-  }, [getUserCourses]);
+    if (user) {
+      const fetchUserCourses = async () => await getUserCourses(user.id);
+      fetchUserCourses();
+    }
+  }, [getUserCourses, user]);
 
   useEffect(() => {
-    const courses = trainingpaths.map((trainingpath) => {
-      const {
-        id,
-        Course: {
-          title,
-          Category: { name },
-        },
-      } = trainingpath;
-      if (!trainingpath.hasOwnProperty('name')) {
-        Object.defineProperty(trainingpath, 'name', {
-          value: name,
-        });
-      } else {
-        Object.assign(trainingpath, 'name', {
-          value: name,
-        });
-      }
-      if (!trainingpath.hasOwnProperty('title')) {
-        Object.defineProperty(trainingpath, 'title', {
-          value: title,
-        });
-      } else {
-        Object.assign(trainingpath, 'title', {
-          value: title,
-        });
-      }
+    if (trainingpaths) {
+      const courses = trainingpaths.map((trainingpath) => {
+        const {
+          id,
+          courseId,
+          percentage,
+          Course: {
+            title,
+            Category: { name },
+          },
+        } = trainingpath;
+        if (!trainingpath.hasOwnProperty('name')) {
+          Object.defineProperty(trainingpath, 'name', {
+            value: name,
+          });
+        } else {
+          Object.assign(trainingpath, 'name', {
+            value: name,
+          });
+        }
+        if (!trainingpath.hasOwnProperty('title')) {
+          Object.defineProperty(trainingpath, 'title', {
+            value: title,
+          });
+        } else {
+          Object.assign(trainingpath, 'title', {
+            value: title,
+          });
+        }
 
-      if (!trainingpath.hasOwnProperty('check')) {
-        Object.defineProperty(trainingpath, 'check', {
-          value: (
-            <Fragment>
-              <div className='form-check'>
-                <label className='form-check-label'>
-                  <input
-                    className='form-check-input'
-                    defaultChecked={isChecked(`${id}`)}
-                    type='checkbox'
-                    id={`${id}`}
-                    onChange={(e) => toggleCheck(e)}
-                  />
-                  <span className='form-check-sign'>
-                    <span className='check'></span>
-                  </span>
-                </label>
-              </div>
-            </Fragment>
-          ),
-        });
-      } else {
-        Object.assign(trainingpath, 'check', {
-          value: (
-            <Fragment>
-              <div className='form-check'>
-                <label className='form-check-label'>
-                  <input
-                    className='form-check-input'
-                    defaultChecked={isChecked(`${id}`)}
-                    type='checkbox'
-                    id={`${id}`}
-                    onChange={(e) => toggleCheck(e)}
-                  />
-                  <span className='form-check-sign'>
-                    <span className='check'></span>
-                  </span>
-                </label>
-              </div>
-            </Fragment>
-          ),
-        });
-      }
+        if (!trainingpath.hasOwnProperty('check')) {
+          Object.defineProperty(trainingpath, 'check', {
+            value: (
+              <Fragment>
+                <div className='form-check'>
+                  <label className='form-check-label'>
+                    <input
+                      className='form-check-input'
+                      defaultChecked={isChecked(`${id}`)}
+                      type='checkbox'
+                      id={`${id}`}
+                      onChange={(e) => toggleCheck(e)}
+                    />
+                    <span className='form-check-sign'>
+                      <span className='check'></span>
+                    </span>
+                  </label>
+                </div>
+              </Fragment>
+            ),
+          });
+        } else {
+          Object.assign(trainingpath, 'check', {
+            value: (
+              <Fragment>
+                <div className='form-check'>
+                  <label className='form-check-label'>
+                    <input
+                      className='form-check-input'
+                      defaultChecked={isChecked(`${id}`)}
+                      type='checkbox'
+                      id={`${id}`}
+                      onChange={(e) => toggleCheck(e)}
+                    />
+                    <span className='form-check-sign'>
+                      <span className='check'></span>
+                    </span>
+                  </label>
+                </div>
+              </Fragment>
+            ),
+          });
+        }
+        if (!trainingpath.hasOwnProperty('progress')) {
+          Object.defineProperty(trainingpath, 'progress', {
+            value: <MDBProgress value={Number(percentage)} className='my-2' />,
+          });
+        } else {
+          Object.assign(trainingpath, 'progress', {
+            value: <MDBProgress value={Number(percentage)} className='my-2' />,
+          });
+        }
 
-      if (!trainingpath.hasOwnProperty('action')) {
-        return Object.defineProperty(trainingpath, 'action', {
-          value: (
-            <button
-              type='button'
-              className='btn btn-tenpearls'
-              onClick={() => toggle(id)}
-            >
-              Chapters
-            </button>
-          ),
-        });
-      } else {
-        return Object.assign(trainingpath, 'action', {
-          value: (
-            <button
-              type='button'
-              className='btn btn-tenpearls'
-              onClick={() => toggle(id)}
-            >
-              Chapters
-            </button>
-          ),
-        });
-      }
-    });
-    setDatatable({
-      columns: [
-        {
-          label: ' ',
-          field: 'check',
-          sort: 'asc',
-        },
-        {
-          label: 'Course',
-          field: 'title',
-          sort: 'asc',
-        },
-        {
-          label: 'Category',
-          field: 'name',
-          sort: 'asc',
-        },
-        {
-          label: 'Chapters',
-          field: 'action',
-        },
-      ],
-      rows: courses,
-    });
+        if (!trainingpath.hasOwnProperty('action')) {
+          return Object.defineProperty(trainingpath, 'action', {
+            value: (
+              <button
+                type='button'
+                className='btn btn-tenpearls'
+                onClick={() => toggle(id, courseId)}
+              >
+                Log Progress
+              </button>
+            ),
+          });
+        } else {
+          return Object.assign(trainingpath, 'action', {
+            value: (
+              <button
+                type='button'
+                className='btn btn-tenpearls'
+                onClick={() => toggle(id, courseId)}
+              >
+                Log Progress
+              </button>
+            ),
+          });
+        }
+      });
+      setDatatable({
+        columns: [
+          {
+            label: ' ',
+            field: 'check',
+          },
+          {
+            label: 'Course',
+            field: 'title',
+            sort: 'asc',
+            width: 300,
+          },
+          {
+            label: 'Category',
+            field: 'name',
+            width: 300,
+          },
+          {
+            label: '',
+            field: 'percentage',
+          },
+          {
+            label: 'Progress (%)',
+            field: 'progress',
+            width: 200,
+          },
+          {
+            label: 'Chapters',
+            field: 'action',
+          },
+        ],
+        rows: courses,
+      });
+    }
   }, [trainingpaths]);
 
   function confirmDelete() {
-    if (
-      window.confirm(
-        'Are you sure to remove selected courses from your Training Path?'
-      )
-    ) {
-      deleteTrainingPath(checked, user.id);
+    if (checked.length > 0) {
+      if (
+        window.confirm(
+          'Are you sure to remove selected courses from your Training Path?'
+        )
+      ) {
+        deleteTrainingPath(checked, user.id, history);
+      } else {
+        return;
+      }
     } else {
-      return;
+      alert('Please select at least one course to delete.');
     }
   }
 
@@ -220,27 +250,28 @@ const TrainingPaths = ({
                   <MDBModal isOpen={modal} toggle={toggle} size='lg'>
                     <MDBModalHeader toggle={toggle}>Chapters</MDBModalHeader>
                     <MDBModalBody>
-                      <CourseChapters courseId={courseId} />
+                      <LogProgress
+                        courseId={courseId}
+                        trainingPathId={trainingPathId}
+                        toggleLogProgress={toggle}
+                      />
                     </MDBModalBody>
-                    <MDBModalFooter>
-                      <MDBBtn color='secondary' onClick={toggle}>
-                        Close
-                      </MDBBtn>
-                    </MDBModalFooter>
+                    {/* <MDBModalFooter>
+                    </MDBModalFooter> */}
                   </MDBModal>{' '}
                 </MDBContainer>
                 <Link
                   to={'/availablecourses'}
                   className='btn btn-tenpearls my-1'
                 >
-                  Add TrainingPath
+                  Add Course to Training Path
                 </Link>
                 <button
                   type='button'
                   className='btn btn-tenpearls my-1'
                   onClick={() => confirmDelete()}
                 >
-                  Remove selected
+                  Remove selected courses
                 </button>
               </div>
             </div>
@@ -264,5 +295,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getUserCourses, deleteTrainingPath })(
-  TrainingPaths
+  withRouter(TrainingPaths)
 );

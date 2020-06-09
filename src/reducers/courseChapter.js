@@ -5,6 +5,7 @@ import {
   UPDATE_COURSECHAPTER,
   GET_COURSECHAPTERS,
   ADD_COURSECHAPTER,
+  CLEAR_COURSECHAPTERS,
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +49,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         courseChapter: null,
+        loading: false,
+      };
+    case CLEAR_COURSECHAPTERS:
+      return {
+        ...state,
+        courseChapter: null,
+        courseChapters: [],
         loading: false,
       };
     default:

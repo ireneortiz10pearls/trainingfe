@@ -20,11 +20,11 @@ import {
 } from 'mdbreact';
 
 const CourseChapters = ({
-  auth: { user },
   courseId,
   getCourseChapters,
   deleteCourseChapter,
   courseChapter: { courseChapters, loading },
+  auth: { user },
 }) => {
   const [datatable, setDatatable] = useState({});
   let history = useHistory();

@@ -54,8 +54,10 @@ const AvailableCourses = ({
   };
 
   useEffect(() => {
-    getAvailableCourses(user.id);
-  }, [getAvailableCourses]);
+    if (user) {
+      getAvailableCourses(user.id);
+    }
+  }, [getAvailableCourses, user]);
 
   useEffect(() => {
     if (!loading && courses) {

@@ -8,11 +8,12 @@ import {
   UPDATE_COURSECHAPTER,
   ADD_COURSECHAPTER,
   CLEAR_COURSECHAPTER,
+  CLEAR_COURSECHAPTERS,
 } from './types';
 
 // Get all courseChapters
 export const getCourseChapters = (id) => async (dispatch) => {
-  dispatch({ type: CLEAR_COURSECHAPTER });
+  dispatch({ type: CLEAR_COURSECHAPTERS });
   try {
     const res = await axios.get(`/api/coursechapter/course/${id}`);
 

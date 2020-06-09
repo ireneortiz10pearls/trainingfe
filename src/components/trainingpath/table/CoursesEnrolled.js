@@ -14,40 +14,44 @@ const CoursesEnrolled = ({
   const [datatable, setDatatable] = useState({});
 
   useEffect(() => {
-    const fetchUserCourses = async () => await getUserCourses(user.id);
-    fetchUserCourses();
-  }, [getUserCourses]);
+    if (user) {
+      const fetchUserCourses = async () => await getUserCourses(user.id);
+      fetchUserCourses();
+    }
+  }, [getUserCourses, user]);
 
   useEffect(() => {
-    const courses = trainingpaths.map((trainingpath) => {
-      const {
-        id,
-        Course: {
-          title,
-          Category: { name },
-          CourseChapter,
-        },
-      } = trainingpath;
-      return { title, name };
-    });
-    setDatatable({
-      columns: [
-        {
-          label: 'Course',
-          field: 'title',
-          sort: 'asc',
-          width: 150,
-        },
-        {
-          label: 'Category',
-          field: 'name',
-          sort: 'asc',
-          width: 150,
-        },
-      ],
-      rows: courses,
-    });
-  }, [trainingpaths]);
+    if (trainingpaths) {
+      const courses = trainingpaths.map((trainingpath) => {
+        const {
+          id,
+          Course: {
+            title,
+            Category: { name },
+            CourseChapter,
+          },
+        } = trainingpath;
+        return { title, name };
+      });
+      setDatatable({
+        columns: [
+          {
+            label: 'Course',
+            field: 'title',
+            sort: 'asc',
+            width: 150,
+          },
+          {
+            label: 'Category',
+            field: 'name',
+            sort: 'asc',
+            width: 150,
+          },
+        ],
+        rows: courses,
+      });
+    }
+  }, [trainingpaths, loading]);
 
   return loading ? (
     <Spinner />

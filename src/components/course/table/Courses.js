@@ -194,7 +194,7 @@ const Courses = ({
                         Close
                       </MDBBtn>
                       <MDBBtn
-                        color='warning'
+                        color='tenpearls'
                         onClick={() => toggleAddModal(courseId)}
                       >
                         Add Chapter

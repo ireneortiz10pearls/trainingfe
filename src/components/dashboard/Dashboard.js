@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CoursesEnrolled from '../trainingpath/table/CoursesEnrolled';
+import TrainingPaths from '../trainingpath/table/TrainingPaths';
 import { useHistory } from 'react-router-dom';
 
 const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
@@ -20,7 +21,7 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
                 <h3 className='card-title '>Dashboard</h3>
               </div>
               <div className='card-body'>
-                {isAuthenticated && !loading && user.roleId === 1 && (
+                {/* {isAuthenticated && !loading && user.roleId === 1 && (
                   <div className='row'>
                     <div className='col-lg-3 col-md-6 col-sm-6'>
                       <div className='card card-stats'>
@@ -168,72 +169,43 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>*/}
                 {isAuthenticated && !loading && user.roleId === 2 && (
-                  <div className='row'>
-                    <div className='col-lg-6 col-md-12'>
-                      <div className='card'>
-                        <div className='card-header card-header-tenpearls'>
-                          <h4 className='card-title'>Your Training Path</h4>
-                          <p className='card-category'></p>
-                        </div>
-                        <div className='card-body '>
-                          <CoursesEnrolled />{' '}
-                          <button
-                            type='button'
-                            className='btn btn-info'
-                            onClick={() => addCourseClick()}
-                          >
-                            Add course to path
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className='col-lg-6 col-md-12'>
-                      <div className='card'>
-                        <div className='card-header card-header-tenpearls'>
-                          <h4 className='card-title'>Courses Started</h4>
-                          <p className='card-category'></p>
-                        </div>
-                        <div className='card-body table-responsive'>
-                          <table className='table table-hover'>
-                            <thead className='text-tenpearls'>
-                              <th>ID</th>
-                              <th>Name</th>
-                              <th>Percentage Completed %</th>
-                              <th>Chapters Left</th>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>Dakota Rice</td>
-                                <td>50</td>
-                                <td>13</td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>Minerva Hooper</td>
-                                <td>89</td>
-                                <td>7</td>
-                              </tr>
-                              <tr>
-                                <td>3</td>
-                                <td>Sage Rodriguez</td>
-                                <td>23</td>
-                                <td>35</td>
-                              </tr>
-                              <tr>
-                                <td>4</td>
-                                <td>Philip Chaney</td>
-                                <td>34</td>
-                                <td>56</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                  <Fragment>
+                    {/* <div className='row'>
+                      <div className='col-lg-12 col-md-12'>
+                        <div className='card'>
+                          <div className='card-header card-header-tenpearls'>
+                            <h4 className='card-title'>Your Training Path</h4>
+                            <p className='card-category'></p>
+                          </div>
+                          <div className='card-body '>
+                            <CoursesEnrolled />{' '}
+                            <button
+                              type='button'
+                              className='btn btn-info'
+                              onClick={() => addCourseClick()}
+                            >
+                              Add course to path
+                            </button>
+                          </div>
                         </div>
                       </div>
+                    </div> */}
+                    <div className='row'>
+                      <div className='col-lg-12 col-md-12'>
+                        {/* <div className='card'>
+                          <div className='card-header card-header-tenpearls'>
+                            <h4 className='card-title'>Courses Started</h4>
+                            <p className='card-category'></p>
+                          </div> */}
+                        <div className='card-body'>
+                          <TrainingPaths />
+                        </div>
+                        {/* </div> */}
+                      </div>
                     </div>
-                  </div>
+                  </Fragment>
                 )}
                 {isAuthenticated && !loading && user.roleId === 2 && (
                   <div className='row'>
