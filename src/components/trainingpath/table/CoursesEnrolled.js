@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
-import { Link } from 'react-router-dom';
 import { MDBDataTableV5 } from 'mdbreact';
 import { getUserCourses } from '../../../actions/trainingpath';
 

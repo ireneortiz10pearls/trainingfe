@@ -245,24 +245,23 @@ const LogProgress = ({
       setDatatable({
         columns: [
           {
-            label: '',
-            // (
-            //   <Fragment>
-            //     <div className='form-check'>
-            //       <label className='form-check-label'>
-            //         <input
-            //           className='form-check-input'
-            //           type='checkbox'
-            //           id='checkbox0'
-            //           onClick={checkAllHandler}
-            //         />
-            //         <span className='form-check-sign'>
-            //           <span className='check'></span>
-            //         </span>
-            //       </label>
-            //     </div>
-            //   </Fragment>
-            // )
+            label:
+              '',
+              // <Fragment>
+              //   <div className='form-check'>
+              //     <label className='form-check-label'>
+              //       <input
+              //         className='form-check-input'
+              //         type='checkbox'
+              //         id='checkbox0'
+              //         onClick={checkAllHandler}
+              //       />
+              //       <span className='form-check-sign'>
+              //         <span className='check'></span>
+              //       </span>
+              //     </label>
+              //   </div>
+              // </Fragment>
             field: 'check',
             sort: 'asc',
           },
