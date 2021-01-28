@@ -1,15 +1,16 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getUserById, editUser } from '../../../actions/user';
+import { getUserById, changePassword } from '../../../actions/user';
 import PropTypes from 'prop-types';
 import { getList } from '../../../actions/list';
-import { withRouter } from 'react-router-dom';
 import { setAlert } from '../../../actions/alert';
+import { withRouter } from 'react-router-dom';
 
-const UserEdit = ({
+const ChangePassword
+ = ({
   setAlert,
   getUserById,
-  editUser,
+  changePassword,
   getList,
   user: { user, loading },
   list: { list },
@@ -68,7 +69,7 @@ const UserEdit = ({
     if (password !== password2) {
       setAlert('Passwords do not match.', 'danger');
     } else {
-      editUser({ id, firstName, lastName, email, password, roleId }, history);
+      changePassword({ id, firstName, lastName, email, password, roleId }, history);
     }
   };
 
@@ -79,10 +80,10 @@ const UserEdit = ({
           <div className='col-md-12'>
             <div className='card'>
               <div className='card-header card-header-tenpearls'>
-                <h3 className='card-title '>Member Creation</h3>
+                <h3 className='card-title '>Change Password</h3>
                 <p className='card-category'>
                   {' '}
-                  <i className='material-icons'>group_add</i> Add a Member
+                  <i className='material-icons'>group_add</i> And Member Info
                 </p>
               </div>
               <div className='card-body'>
@@ -94,7 +95,7 @@ const UserEdit = ({
                         <input
                           className='form-control'
                           type='text'
-                          placeholder='Category Id'
+                          placeholder='User Id'
                           name='id'
                           value={id}
                           disabled
@@ -180,8 +181,7 @@ const UserEdit = ({
                           placeholder='Email Address'
                           name='email'
                           value={email}
-                          onChange={(e) => onChange(e)}
-                          required
+                          disabled
                         />
                       </div>{' '}
                     </div>
@@ -190,10 +190,10 @@ const UserEdit = ({
                         <label className='bmd-label-floating'>Role</label>
                         <select
                           className='form-control selectpicker'
-                          onChange={(e) => onChange(e)}
                           name='roleId'
                           value={roleId}
                           data-style='btn btn-link'
+                          disabled
                         >
                           <option>Select Role</option>
                           {list.map((item) => (
@@ -220,9 +220,10 @@ const UserEdit = ({
   );
 };
 
-UserEdit.propTypes = {
+ChangePassword
+.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  editUser: PropTypes.func.isRequired,
+  changePassword: PropTypes.func.isRequired,
   getUserById: PropTypes.func.isRequired,
   getList: PropTypes.func.isRequired,
   list: PropTypes.object.isRequired,
@@ -232,8 +233,8 @@ UserEdit.propTypes = {
 const mapStateToProps = (state) => ({ list: state.list, user: state.user });
 
 export default connect(mapStateToProps, {
-  setAlert,
-  editUser,
+  setAlert, 
+  changePassword,
   getUserById,
   getList,
-})(withRouter(UserEdit));
+})(withRouter(ChangePassword));

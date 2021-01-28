@@ -9,7 +9,7 @@ import {
 import LogProgress from '../../trainingpath/table/LogProgress';
 import { Link, withRouter } from 'react-router-dom';
 import {
-  MDBDataTable,
+  MDBDataTableV5,
   MDBContainer,
   MDBModal,
   MDBModalBody,
@@ -236,7 +236,7 @@ const TrainingPaths = ({
                 <h3 className='card-title '>Training Path</h3>
               </div>
               <div className='card-body'>
-                <MDBDataTable
+                <MDBDataTableV5
                   hover
                   entriesOptions={[5, 20, 25]}
                   entries={5}
@@ -245,6 +245,7 @@ const TrainingPaths = ({
                   paging={false}
                   scrollY={true}
                   maxHeight='59vh'
+                  sortable={true}
                 />
                 <MDBContainer>
                   <MDBModal isOpen={modal} toggle={toggle} size='lg'>

@@ -7,6 +7,10 @@ import MostEnrolledUsers from './table/MostEnrolledUsers';
 import MostEnrolledUsersChart from './chart/MostEnrolledUsersChart';
 import LastCoursesCreated from './table/LastCoursesCreated';
 import { useHistory } from 'react-router-dom';
+import RecomendedCourses from './table/RecomendedCourses';
+import NotStartedCourses from './table/NotStartedCourses';
+import IndicatorsSection from './indicator/indicatorssection';
+import FinishedCourses from './table/FinishedCourses';
 
 const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
   let history = useHistory();
@@ -26,6 +30,9 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
               <div className='card-body'>
                 {isAuthenticated && !loading && user.roleId === 2 && (
                   <Fragment>
+                    <div>
+                      <IndicatorsSection />
+                    </div>
                     <div className='row'>
                       <div className='col-lg-12 col-md-12'>
                         <div className='card-body'>
@@ -41,90 +48,18 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
                     <div className='card'>
                       <div className='card-header card-header-tenpearls'>
                         <h4 className='card-title'>Most enrolled courses</h4>
-                        <p className='card-category'>Last Month</p>
+                        {/* <p className='card-category'>Last Month</p> */}
                       </div>
                       <MostEnrolledCourses />
-                      {/* <div className='card-body table-responsive'>
-                        <table className='table table-hover'>
-                          <thead className='text-danger'>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Salary</th>
-                            <th>Country</th>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>Dakota Rice</td>
-                              <td>$36,738</td>
-                              <td>Niger</td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>Minerva Hooper</td>
-                              <td>$23,789</td>
-                              <td>Curaçao</td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>Sage Rodriguez</td>
-                              <td>$56,142</td>
-                              <td>Netherlands</td>
-                            </tr>
-                            <tr>
-                              <td>4</td>
-                              <td>Philip Chaney</td>
-                              <td>$38,735</td>
-                              <td>Korea, South</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div> */}
                     </div>
                   </div>
                   <div className='col-lg-6 col-md-12'>
                     <div className='card'>
                       <div className='card-header card-header-tenpearls'>
                         <h4 className='card-title'>Last Courses Added</h4>
-                        <p className='card-category'>This Week</p>
+                        {/* <p className='card-category'>This Week</p> */}
                       </div>
                       <LastCoursesCreated />
-                      {/* <div className='card-body table-responsive'>
-                        <table className='table table-hover'>
-                          <thead className='text-primary'>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Salary</th>
-                            <th>Country</th>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>Dakota Rice</td>
-                              <td>$36,738</td>
-                              <td>Niger</td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>Minerva Hooper</td>
-                              <td>$23,789</td>
-                              <td>Curaçao</td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>Sage Rodriguez</td>
-                              <td>$56,142</td>
-                              <td>Netherlands</td>
-                            </tr>
-                            <tr>
-                              <td>4</td>
-                              <td>Philip Chaney</td>
-                              <td>$38,735</td>
-                              <td>Korea, South</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -145,7 +80,7 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
                       <div className='card'>
                         <div className='card-header card-header-tenpearls'>
                           <h4 className='card-title'>Most Active Members</h4>
-                          <p className='card-category'>This Month</p>
+                          {/* <p className='card-category'></p> */}
                         </div>
                         <MostEnrolledUsersChart />{' '}
                       </div>
@@ -157,34 +92,14 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
                     <div className='col-md-4'>
                       <div className='card '>
                         <div className='card-header card-header-success'>
-                          <div className='ct-chart'>Recomended Courses</div>
+                          <div className='ct-chart'>Finished Courses</div>
                         </div>
-                        <div className='card-body'>
-                          <table className='table table-hover'>
-                            <thead className='text-success'>
-                              <th>Name</th>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Dakota Rice</td>
-                              </tr>
-                              <tr>
-                                <td>Minerva Hooper</td>
-                              </tr>
-                              <tr>
-                                <td>Sage Rodriguez</td>
-                              </tr>
-                              <tr>
-                                <td>Philip Chaney</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                        <FinishedCourses />
                         <div className='card-footer'>
-                          <div className='stats'>
+                          {/* <div className='stats'>
                             <i className='material-icons'>access_time</i>{' '}
                             updated 4 minutes ago
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -195,69 +110,31 @@ const Dashboard = ({ auth: { isAuthenticated, loading, user } }) => {
                             Your courses without starting
                           </div>
                         </div>
-                        <div className='card-body'>
-                          <table className='table table-hover'>
-                            <thead className='text-tenpearls'>
-                              <th>Name</th>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Dakota Rice</td>
-                              </tr>
-                              <tr>
-                                <td>Minerva Hooper</td>
-                              </tr>
-                              <tr>
-                                <td>Sage Rodriguez</td>
-                              </tr>
-                              <tr>
-                                <td>Philip Chaney</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                        <NotStartedCourses />{' '}
                         <div className='card-footer'>
-                          <div className='stats'>
+                          {/* <div className='stats'>
                             <i className='material-icons'>access_time</i>{' '}
                             updated 4 minutes ago
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
                     <div className='col-md-4'>
                       <div className='card '>
                         <div className='card-header card-header-danger'>
-                          <div className='ct-chart'>Your courses stopped</div>
+                          <div className='ct-chart'>Recomended Courses</div>
                         </div>
                         <div className='card-body'>
-                          <h4 className='card-title'>
+                          {/* <h4 className='card-title'>
                             No movement in last month
-                          </h4>
-                          <table className='table table-hover'>
-                            <thead className='text-danger'>
-                              <th>Name</th>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Dakota Rice</td>
-                              </tr>
-                              <tr>
-                                <td>Minerva Hooper</td>
-                              </tr>
-                              <tr>
-                                <td>Sage Rodriguez</td>
-                              </tr>
-                              <tr>
-                                <td>Philip Chaney</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          </h4> */}
+                          <RecomendedCourses />
                         </div>
                         <div className='card-footer'>
-                          <div className='stats'>
+                          {/* <div className='stats'>
                             <i className='material-icons'>access_time</i>{' '}
                             updated 4 minutes ago
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

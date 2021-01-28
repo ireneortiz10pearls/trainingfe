@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addCourse } from '../../../actions/course';
 import { getCategories } from '../../../actions/category';
 import { withRouter } from 'react-router-dom';
+import { MDBTooltip, MDBBtn } from "mdbreact";
 
 const CourseAdd = ({
   addCourse,
@@ -62,6 +63,7 @@ const CourseAdd = ({
       removeTag(tagsInput.length - 1);
     }
   };
+  const style = { display: "inline-block", padding: "10px" };
 
   return (
     <Fragment>
@@ -134,7 +136,15 @@ const CourseAdd = ({
                   <div className='row'>
                     <div className='col-md-12'>
                       <div className='form-group'>
-                        <label className='bmd-label-floating'>Tags</label>
+                        <label className='bmd-label-floating'>Tags</label>{' '}
+                        <div style={style}>
+                          <MDBTooltip placement='right' clickable>
+                            <MDBBtn color='primary'>More Info</MDBBtn>
+                            <span>
+                              To add new tag enter tag name and press Tab key.
+                            </span>
+                          </MDBTooltip>
+                        </div>
                         <div className='input-tag'>
                           <ul className='input-tag__tags'>
                             {tagsInput.map((tag, i) => (

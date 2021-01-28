@@ -15,6 +15,7 @@ import CategoryAdd from './components/category/forms/CategoryAdd';
 import CategoryEdit from './components/category/forms/CategoryEdit';
 import Users from './components/user/table/Users';
 import UserEdit from './components/user/forms/UserEdit';
+import ChangePassword from './components/user/forms/ChangePassword';
 import TrainingPaths from './components/trainingpath/table/TrainingPaths';
 import AvailableCourses from './components/trainingpath/table/AvailableCourses';
 
@@ -87,6 +88,11 @@ const App = () => {
                     exact
                     path='/useredit/:id'
                     component={UserEdit}
+                  />
+                  <Route
+                    exact
+                    path='/changepassword/:id'
+                    component={ChangePassword}
                   />
                 </Switch>
               </section>

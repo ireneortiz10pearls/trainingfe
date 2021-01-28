@@ -33,17 +33,24 @@ const LogProgress = ({
   const [checked, setChecked] = useState([]);
   const [areAllChecked, setAreAllChecked] = useState(false);
 
-  const checkAllHandler = () => {
-    if (checked.length > 0) {
-      setChecked(() => []);
-      setAreAllChecked(() => false);
-    } else {
-      courseChapters.forEach((courseChapter) => {
-        if (!courseChapter.isDone) {
-          setChecked((prevChecked) => [...prevChecked, courseChapter.id]);
-        }
+  const checkAllHandler = (e) => {
+    e.persist();
+
+    if (e.target.checked) {
+      console.log('checked');
+      courseChapters.map((chapter) => {
+        const { id } = chapter;
+        setChecked((prevChecked) => {
+          return [...prevChecked, id];
+        });
       });
-      setAreAllChecked(() => true);
+      setAreAllChecked(true);
+    } else {
+      console.log('unchecked');
+      setChecked(() => {
+        return [];
+      });
+      setAreAllChecked(false);
     }
   };
 
@@ -245,23 +252,23 @@ const LogProgress = ({
       setDatatable({
         columns: [
           {
-            label:
-              '',
-              // <Fragment>
-              //   <div className='form-check'>
-              //     <label className='form-check-label'>
-              //       <input
-              //         className='form-check-input'
-              //         type='checkbox'
-              //         id='checkbox0'
-              //         onClick={checkAllHandler}
-              //       />
-              //       <span className='form-check-sign'>
-              //         <span className='check'></span>
-              //       </span>
-              //     </label>
-              //   </div>
-              // </Fragment>
+            label: (
+              <Fragment>
+                <div className='form-check'>
+                  <label className='form-check-label'>
+                    <input
+                      className='form-check-input'
+                      type='checkbox'
+                      id='checkbox0'
+                      onChange={(e) => checkAllHandler(e)}
+                    />
+                    <span className='form-check-sign'>
+                      <span className='check'></span>
+                    </span>
+                  </label>
+                </div>
+              </Fragment>
+            ),
             field: 'check',
             sort: 'asc',
           },
@@ -297,7 +304,7 @@ const LogProgress = ({
         rows: rows,
       });
     }
-  }, [courseChapters, areAllChecked]);
+  }, [courseChapters]);
 
   function markUndo(id, finishedDate, e) {
     e.preventDefault();
@@ -360,6 +367,7 @@ const LogProgress = ({
                   paging={false}
                   scrollY={true}
                   maxHeight='50vh'
+                  sortable={false}
                 />
                 <MDBContainer>
                   <MDBModal isOpen={editModal} toggle={toggleEdit}>

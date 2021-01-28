@@ -1,16 +1,17 @@
 import React, { Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-
+import { Link, Redirect,  useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login, loadUser } from '../../actions/auth';
+import { setAlert } from '../../actions/alert';
+import { forgotPassword } from '../../actions/user';
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated,  setAlert, forgotPassword }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
+  let history = useHistory();
   const { email, password } = formData;
 
   const onChange = (e) =>
@@ -20,6 +21,15 @@ const Login = ({ login, isAuthenticated }) => {
     e.preventDefault();
     login(email, password);
   };
+  
+  function handleForgotPasswordClick(email, e) {
+    e.preventDefault();
+    if (email == '') {
+      setAlert('Email is required.', 'danger');
+    } else {
+      forgotPassword(email);
+    }
+  }
 
   // Redirect if logged in
   if (isAuthenticated) {
@@ -82,6 +92,11 @@ const Login = ({ login, isAuthenticated }) => {
                     className='btn btn-tenpearls'
                     value='Login'
                   />
+                  <input
+                    onClick={(e) => handleForgotPasswordClick(email, e)}
+                    className='btn btn-tenpearls'
+                    value='Forgot Password'
+                  />
                 </form>
               </div>
             </div>
@@ -93,6 +108,8 @@ const Login = ({ login, isAuthenticated }) => {
 };
 
 Login.propTypes = {
+  forgotPassword: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
@@ -101,4 +118,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, setAlert, forgotPassword })(Login);

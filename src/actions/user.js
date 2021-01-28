@@ -8,7 +8,9 @@ import {
   USER_ERROR,
   UPDATE_USER,
   CLEAR_USER,
+  LOGIN_SUCCESS,
 } from '../actions/types';
+import {loadUser} from './auth';
 
 // Get all users
 export const getUsers = () => async (dispatch) => {
@@ -110,7 +112,7 @@ export const editUser = (
   });
 
   try {
-    const res = await axios.put(`/api/user/${id}`, body, config);
+    let res = await axios.put(`/api/user/${id}`, body, config);
 
     dispatch({
       type: UPDATE_USER,
@@ -119,9 +121,60 @@ export const editUser = (
     dispatch(setAlert('User Updated', 'success'));
     history.push('/users');
   } catch (err) {
+    console.log('====================================');
+    console.log(err);
+    console.log('====================================');
     dispatch({
       type: USER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+
+export const changePassword = (
+  { id, firstName, lastName, email, password, roleId }, history
+) => async (dispatch) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+  };
+  const isActive = true;
+  let body = JSON.stringify({
+    firstName,
+    lastName,
+    email,
+    password,
+    roleId,
+    isActive,
+  });
+
+  try {
+    let res = await axios.put(`/api/user/${id}`, body, config);
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data.payload,
+    });
+    dispatch(setAlert('Your password has been created successfully', 'success'));
+
+    body = JSON.stringify({ email, password });
+    res = await axios.post('/api/auth', body, config);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(loadUser());
+    history.push('/dashboard');
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    console.log('====================================');
+    console.log(err);
+    console.log('====================================');
+    dispatch({
+      type: USER_ERROR,
+      payload: { msg:err },
     });
   }
 };
@@ -158,5 +211,25 @@ export const deleteUser = (id) => async (dispatch) => {
       type: USER_ERROR,
       payload: { msg: err.message, status: err.status },
     });
+  }
+};
+
+export const forgotPassword = (email) => async (dispatch) => {
+  const config = {
+    headers: { 'Content-Type': 'application/json' },
+  };
+  try {
+    dispatch(setAlert('An email was sent to reset your password.', 'success'));
+    let res = await axios.get(`/api/user/forgotpassword/${email}`);
+  } catch (err) {
+    console.log('====================================');
+    console.log(err);
+    console.log('====================================');
+    dispatch(
+      setAlert(
+        'An error occurred while sending an email to reset your password.',
+        'danger'
+      )
+    );
   }
 };

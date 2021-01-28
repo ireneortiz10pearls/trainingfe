@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editTrainingPathStatus } from '../../../actions/trainingpath';
 
-const DoneChapter = ({
+const EditDone = ({
   idChapter,
   idTrainingPath,
   finishedDate,
@@ -80,8 +80,8 @@ const DoneChapter = ({
   );
 };
 
-DoneChapter.propTypes = {
+EditDone.propTypes = {
   editTrainingPathStatus: PropTypes.func.isRequired,
 };
 
-export default connect(null, { editTrainingPathStatus })(DoneChapter);
+export default connect(null, { editTrainingPathStatus })(EditDone);

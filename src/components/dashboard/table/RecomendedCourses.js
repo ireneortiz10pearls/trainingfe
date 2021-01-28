@@ -1,14 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 import axios from 'axios';
+import moment from 'moment';
 
-const MostEnrolledCourses = () => {
+const RecomendedCourses = () => {
   const [datatable, setDatatable] = useState({});
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('/api/trainingpath/mostenrolled/courses');
+      const result = await axios.get('/api/course/lastcreated');
       setData(result.data.payload);
     };
     fetchData();
@@ -16,20 +17,19 @@ const MostEnrolledCourses = () => {
 
   useEffect(() => {
     if (data) {
+      const courses = data.map((item) => {
+        const { title } = item;
+        return { title };
+      });
+
       setDatatable({
         columns: [
           {
             label: 'Course',
-            field: 'Course.title',
-            width: 150,
-          },
-          {
-            label: 'QTY',
-            field: 'courseCount',
-            width: 150,
+            field: 'title',
           },
         ],
-        rows: data,
+        rows: courses,
       });
     }
   }, [data]);
@@ -48,4 +48,4 @@ const MostEnrolledCourses = () => {
   );
 };
 
-export default MostEnrolledCourses;
+export default RecomendedCourses;
